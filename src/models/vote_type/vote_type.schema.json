@@ -1,0 +1,11 @@
+{
+    "type": "object",
+    "required": [
+        "vote_type"
+    ],
+    "properties": {
+        "vote_type": {
+            "type": "string"
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "type": "object",
+    "required": [
+        "comment_text",
+        "created_by_user_id",
+        "post_id"
+    ],
+    "properties": {
+        "comment_text": {
+            "type": "string"
+        },
+        "created_by_user_id": {
+            "type": "string"
+        },
+        "post_id": {
+            "type": "string"
+        }
+    }
+}

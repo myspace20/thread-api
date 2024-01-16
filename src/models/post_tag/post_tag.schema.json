@@ -1,0 +1,15 @@
+{
+    "type": "object",
+    "required": [
+        "post_id",
+        "tag_id"
+    ],
+    "properties": {
+        "post_id": {
+            "type": "string"
+        },
+        "tag_id": {
+            "type": "string"
+        }
+    }
+}

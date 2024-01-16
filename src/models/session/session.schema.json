@@ -1,0 +1,19 @@
+{
+    "type": "object",
+    "required": [
+        "is_valid",
+        "user_agent",
+        "user_id"
+    ],
+    "properties": {
+        "is_valid": {
+            "type": "boolean"
+        },
+        "user_agent": {
+            "type": "string"
+        },
+        "user_id": {
+            "type": "string"
+        }
+    }
+}

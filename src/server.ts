@@ -1,4 +1,8 @@
-import { User } from "./models/User";
+import config from "../knexfile";
+import initializeDb from "./config/database/db";
+import { User } from "./models/user/User";
+import { Model } from "objection";
+
 
 async function main(){
     // const insert = await User.query().insert({
@@ -9,9 +13,13 @@ async function main(){
     //     location:'Accra, Ghana'
     // })
 
-    // const results = await User.query()
+    initializeDb()
 
-    // console.log(results)
+    const results = await User.query()
+
+    console.log(results)
+
+    
 }
 
 main()

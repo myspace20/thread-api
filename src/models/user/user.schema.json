@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "required": [
+    "email",
+    "display_name",
+    "about_me",
+    "password_hash",
+    "location"
+  ],
+  "properties": {
+    "display_name": {
+      "type": "string"
+    },
+    "password_hash": {
+      "type": "string"
+    },
+    "about_me": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "location": {
+      "type": "string"
+    }
+  }
+}
