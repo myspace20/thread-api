@@ -9,5 +9,5 @@
     "esModuleInterop":true,
     "resolveJsonModule":true
   },
-  "include": ["src/**/*", "config", "knexfile.ts"],
+  "include": ["src/**/*", "config", "knexfile.ts", "database", "config"],
 }

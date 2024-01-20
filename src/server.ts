@@ -1,25 +1,12 @@
-import config from "../knexfile";
-import initializeDb from "./config/database/db";
-import { User } from "./models/user/User";
-import { Model } from "objection";
+import { Application } from "express";
+import { app } from "./app";
+import initializeDb from "../config/database/db";
 
-
-async function main(){
-    // const insert = await User.query().insert({
-    //     email:"test@mail.com",
-    //     display_name:'Test',
-    //     password_hash:'dummy',
-    //     about_me:"About me, I am cool",
-    //     location:'Accra, Ghana'
-    // })
-
-    initializeDb()
-
-    const results = await User.query()
-
-    console.log(results)
-
-    
+function startServer(app: Application) {
+  initializeDb();
+  app.listen(8080, function () {
+    console.log("server is up on 8080");
+  });
 }
 
-main()
+startServer(app);

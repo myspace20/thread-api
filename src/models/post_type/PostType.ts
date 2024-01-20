@@ -1,3 +1,4 @@
+import { RelationMappings, RelationMappingsThunk } from "objection";
 import BaseModel from "../base/Base";
 import schema from "../post_type/post_type.schema.json";
 

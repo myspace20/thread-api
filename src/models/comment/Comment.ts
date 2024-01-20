@@ -11,4 +11,8 @@ export class Comment extends BaseModel{
     static get jsonSchema(){
         return scheam
     }
+
+    static relationMapping = {
+        
+    }
 }
