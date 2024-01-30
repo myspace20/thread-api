@@ -1,6 +1,5 @@
 import JWTTools from "jsonwebtoken";
 
-
 export class JWTService {
   static sign(payload, key, options) {
     return JWTTools.sign(payload, key, options);

@@ -9,6 +9,11 @@ export class VoteTypeService {
     return voteType;
   }
 
+  async get() {
+    const voteTypes = await VoteType.query();
+    return voteTypes;
+  }
+
   async create(voteTypeData) {
     const voteType = await VoteType.query().insert(voteTypeData);
     return voteType;

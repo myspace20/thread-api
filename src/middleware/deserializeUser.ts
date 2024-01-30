@@ -11,7 +11,6 @@ export async function deserializeUser(
   next: NextFunction
 ) {
   const { accessToken, refreshToken } = req.cookies;
-  console.log(req.cookies)
   const { decoded, expired } = JWTService.verify(
     accessToken,
     configs.keys.accessTokenPublicKey,
@@ -19,7 +18,6 @@ export async function deserializeUser(
   );
 
   if (decoded) {
-    console.log(decoded)
     res.locals.user = decoded;
   }
 
@@ -54,7 +52,6 @@ export async function deserializeUser(
       configs.accessTokenVerifyOptions
     );
     if (decodedAcessToken) {
-      console.log(decodedAcessToken)
       res.locals.user = decodedAcessToken;
     }
   }

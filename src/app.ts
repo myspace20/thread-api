@@ -8,13 +8,24 @@ import express, {
 import { sessionRouter } from "./routes/session";
 import { errorHandler, handlerWrapper } from "./util/util";
 import { UserService } from "./services/UserService";
-import { User } from "./models/user/User";
+import CookieParser from 'cookie-parser'
+import { SessionService } from "./services/SessionService";
+import { deserializeUser } from "./middleware/deserializeUser";
+import { Model } from "objection";
+import { postRouter } from "./routes/posts";
+import { tagsRouter } from "./routes/tags";
+import { postTypeRouter } from "./routes/postTypes";
+
 
 export const app: Application = express();
 
 app.use(json());
 
 app.use(urlencoded({ extended: false }));
+
+app.use(CookieParser())
+
+app.use(deserializeUser)
 
 // app.get('/test', async function(req: Request, res: Response){
 //     const sessions = await Session
@@ -27,12 +38,20 @@ app.use(urlencoded({ extended: false }));
 //   res.send(session)
 // })
 
-app.post('/sign_up',handlerWrapper(async(req: Request, res: Response)=>{
-  const user = await UserService.signUp(req.body)
-  res.send(user)
-}))
+// app.post('/sign_up',handlerWrapper(async(req: Request, res: Response)=>{
+//   const user = await UserService.signUp(req.body)
+//   res.send(user)
+// }))
 
 app.use(sessionRouter);
+
+app.use(postRouter)
+
+app.use(tagsRouter)
+
+app.use(postTypeRouter)
+
+
 
 app.use(errorHandler);
 

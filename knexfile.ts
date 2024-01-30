@@ -2,11 +2,11 @@ import knex from "knex";
 
 // Update with your config settings.
 
-/**
- * @type { Object.<string, import("knex").Knex.Config> }
- */
+// /**
+//  * @type { Object.<string, import("knex").Knex.Config> }
+//  */
 
-const config:any  = knex({
+const config = {
   
     client: "pg",
     connection:
@@ -47,6 +47,6 @@ const config:any  = knex({
   //     tableName: "knex_migrations",
   //   },
   // },
-});
+};
 
 export = config

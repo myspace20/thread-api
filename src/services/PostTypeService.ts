@@ -14,6 +14,11 @@ export class PostTypeService {
     return postType;
   }
 
+  async get() {
+    const postTypes = await PostType.query();
+    return postTypes;
+  }
+
   async patch(id, postTypeData) {
     await this.getById(id);
     const postType = await PostType.query().patch(postTypeData).where(id);

@@ -4,7 +4,7 @@ import { HttpError } from "../util/HttpError";
 export class UserService {
   static async signUp(userObject) {
     const userExist = await User.query().where("email", userObject.email);
-    if (userExist.length) throw new HttpError(409,"user with such credentials exists");
+    if (userExist.length) throw new HttpError(409,"user with such email exists");
     const hash = await User.encryptPassword(userObject.password);
     delete userObject.password;
     const userInsertObject = { ...userObject, password_hash: hash };

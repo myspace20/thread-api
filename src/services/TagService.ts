@@ -8,6 +8,11 @@ export class TagService {
     return tag;
   }
 
+  async get(){
+    const tags = await Tag.query()
+    return tags
+  }
+
   async create(tagData) {
     const tag = await Tag.query().insert(tagData);
     return tag;

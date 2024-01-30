@@ -2,10 +2,11 @@ import { Request, Response } from "express";
 import { SessionService } from "../../services/SessionService";
 import { JWTService } from "../../services/JWTService";
 import configs from "../../../config/database/default";
+import { HttpError } from "../../util/HttpError";
 
 
 export async function sessionPost(req:Request, res:Response){
-    const session = await SessionService.login(req.body)
+    const session = await SessionService.login(req.headers['user-agent'],req.body)
     const tokenData = {id:session.session.id, userId:session.existingUser.id}
     const accessToken = JWTService.sign(
         tokenData,
@@ -40,6 +41,7 @@ export async function sessionPatch(req:Request, res:Response) {
         maxAge: 0,
       });
       const user = res.locals.user;
+      if(!user) throw new HttpError(409,'error signing out')
       await SessionService.inValidateSession(user.id);
       res.status(204).send(`logout successful`);
 }
