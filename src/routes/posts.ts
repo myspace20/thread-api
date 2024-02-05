@@ -1,10 +1,15 @@
 import { Router } from "express";
-import { postGET, questionPOST } from "../handlers/posts";
+import {  answerQuestionPatch, deletePost, postGET, questionPOST } from "../handlers/posts";
+import { handlerWrapper } from "../util/util";
 
-export const postRouter = Router()
+export const postRouter = Router();
+
+postRouter.get("/post", handlerWrapper(postGET));
+
+postRouter.post("/post",handlerWrapper(questionPOST));
 
 
-postRouter.get('/post',postGET)
+postRouter.patch('/answer_question/:id',handlerWrapper(answerQuestionPatch))
 
-postRouter.post('/post', questionPOST)
+postRouter.delete('/post/:id',handlerWrapper(deletePost))
 

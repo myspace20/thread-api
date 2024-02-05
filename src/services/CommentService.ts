@@ -1,8 +1,8 @@
-import { Comment } from "../models/comment/Comment";
+import { Comment } from "../models/Comment";
 
 export class CommentService {
   async getById(id: string) {
-    const comment = await Comment.query().findOne(id);
+    const comment = await Comment.query().findById(id);
     if (!comment) throw Error(`comment with id ${id} not found`);
     return comment;
   }

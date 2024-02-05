@@ -1,9 +1,9 @@
-import { PostType } from "../models/post_type/PostType";
+import { PostType } from "../models/PostType";
 import { HttpError } from "../util/HttpError";
 
 export class PostTypeService {
   async getById(id) {
-    const postType = await PostType.query().findOne(id);
+    const postType = await PostType.query().findById(id);
     if (!postType)
       throw new HttpError(404, `post type with id ${id} not found`);
     return postType;

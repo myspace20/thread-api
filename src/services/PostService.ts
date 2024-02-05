@@ -1,19 +1,24 @@
-import { Posts } from "../models/post/Post";
+import { Answer } from "../models/Answer";
+import { Posts } from "../models/Post";
+import { Votes } from "../models/Vote";
+import { VoteType } from "../models/VoteType";
 import { HttpError } from "../util/HttpError";
+import { raw, ref } from "objection";
 
 export class PostService {
   async getById(id) {
-    const post = await Posts.query().insert(id);
-    if (post) throw new HttpError(404, `post with id ${id} not found`);
+    const post = await Posts.query().findById(id);
+    if (!post) throw new HttpError(404, `post with id ${id} not found`);
     return post;
   }
 
   async get() {
     //need to paginate with limits and offsets
-    const posts = await Posts.query()
-      .returning("*")
-      .withGraphFetched("[author, comments]");
-    return posts;
+    const posts = await Posts.query().withGraphFetched('[answers.[votes.[vote_type]]]')
+    .modifyGraph('answers.votes',(builder)=>{
+      builder
+    })
+    return posts
   }
 
   async patch(id, postData) {
@@ -22,32 +27,17 @@ export class PostService {
     return post;
   }
 
-  async createChildPostAsAnswer(childPostData) {
-    const trx = await Posts.startTransaction();
-    try {
-      const parentPost = await Posts.query(trx).findById(
-        childPostData.parent_question_id
-      );
-      if (!parentPost) {
-        throw new HttpError(404, "post not found");
-      }
-      const childPost = await Posts.query(trx).insert(childPostData);
-      trx.commit();
-      return childPost;
-    } catch (error) {
-      trx.rollback();
-      throw new HttpError(400, "error creating post");
-    }
-  }
-
-  async setPostAsAcceptedAnswer(parentPostId, childPostId) {
-    const childPost = await this.getById(childPostId);
+ 
+  /*need to create an answer model to handle
+   the duplication of post data */
+  async setPostAsAcceptedAnswer(postId, answerId) {
+    const childPost = await this.getById(answerId);
     //@ts-ignore
-    if (childPost.parent_question_id != parentPostId)
+    if (childPost.parent_question_id != postId)
       throw new HttpError(400, "error setting post an accepted answer");
     const acceptedAnswer = await Posts.query()
-      .patch({ accepted_answer_id: childPostId })
-      .where(parentPostId);
+      .patch({ accepted_answer_id: answerId })
+      .where(postId);
     return acceptedAnswer;
   }
 

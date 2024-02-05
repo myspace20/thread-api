@@ -1,4 +1,4 @@
-import { User } from "../models/user/User";
+import { User } from "../models/User";
 import { HttpError } from "../util/HttpError";
 
 export class UserService {

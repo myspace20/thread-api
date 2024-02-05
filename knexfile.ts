@@ -12,7 +12,7 @@ const config = {
     connection:
       "postgresql://postgres:Around22!@localhost:5432/thread?schema=public",
     migrations: {
-      directory: "src/migrations",
+      directory: "config/database/migrations",
     
   },
 

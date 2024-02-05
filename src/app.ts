@@ -5,17 +5,12 @@ import express, {
   Request,
   Response,
 } from "express";
-import { sessionRouter } from "./routes/session";
 import { errorHandler, handlerWrapper } from "./util/util";
-import { UserService } from "./services/UserService";
-import CookieParser from 'cookie-parser'
-import { SessionService } from "./services/SessionService";
+import CookieParser from "cookie-parser";
 import { deserializeUser } from "./middleware/deserializeUser";
-import { Model } from "objection";
-import { postRouter } from "./routes/posts";
-import { tagsRouter } from "./routes/tags";
-import { postTypeRouter } from "./routes/postTypes";
-
+import routes from "./routes";
+import { requestHistogram } from "./metrics/metrics";
+import responseTime from "response-time";
 
 export const app: Application = express();
 
@@ -23,35 +18,20 @@ app.use(json());
 
 app.use(urlencoded({ extended: false }));
 
-app.use(CookieParser())
+app.use(CookieParser());
 
-app.use(deserializeUser)
+app.use(deserializeUser);
 
-// app.get('/test', async function(req: Request, res: Response){
-//     const sessions = await Session
-//     .query().withGraphFetched('user')
-//     res.send(sessions)
-// })
+app.use(routes);
 
-// app.post('/login', async function (req: Request, res: Response) {
-//   const session = await SessionService.login(req.body)
-//   res.send(session)
-// })
-
-// app.post('/sign_up',handlerWrapper(async(req: Request, res: Response)=>{
-//   const user = await UserService.signUp(req.body)
-//   res.send(user)
-// }))
-
-app.use(sessionRouter);
-
-app.use(postRouter)
-
-app.use(tagsRouter)
-
-app.use(postTypeRouter)
-
-
+app.use(
+  responseTime((req: Request, res: Response, time: number) => {
+    console.log(time);
+    requestHistogram
+      .labels(req.method, req.route.path, res.statusCode.toString())
+      .observe(time/1000);
+  })
+);
 
 app.use(errorHandler);
 

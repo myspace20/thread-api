@@ -1,6 +1,13 @@
 import { Router } from "express";
-import { postTypePost } from "../handlers/postTypes";
+import {
+  postTypeGet,
+  postTypePatch,
+  postTypePost,
+} from "../handlers/postTypes";
 
-export const postTypeRouter = Router()
+export const postTypeRouter = Router();
 
-postTypeRouter.post('/post_type', postTypePost)
+postTypeRouter.post("/post_type", postTypePost);
+postTypeRouter.get("/post_type", postTypeGet);
+postTypeRouter.patch("/post_type/:id", postTypePatch);
+postTypeRouter.delete("/post_type/:id", postTypePatch);

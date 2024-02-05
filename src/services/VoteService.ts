@@ -1,4 +1,4 @@
-import { Votes } from "../models/vote/Vote";
+import { Votes } from "../models/Vote";
 import { HttpError } from "../util/HttpError";
 
 export class VoteService {
@@ -19,7 +19,13 @@ export class VoteService {
   //   return votes;
   // }
 
+
+  //more like a patch operation
   async create(voteData) {
+    //use transactions to verify existence of ids
+    //check post creater against supplied id
+    //verify vote type id
+    
     const vote = await Votes.query().insert(voteData);
     return vote;
   }

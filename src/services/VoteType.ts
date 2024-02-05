@@ -1,4 +1,4 @@
-import { VoteType } from "../models/vote_type/VoteType";
+import { VoteType } from "../models/VoteType";
 import { HttpError } from "../util/HttpError";
 
 export class VoteTypeService {

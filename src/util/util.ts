@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { HttpError } from "./HttpError";
-import { ValidationError } from "objection";
+import { ValidationError } from "joi";
 
 /*
  * This is from the library https://github.com/Abazhenov/express-async-handler
@@ -38,7 +38,7 @@ export function errorHandler(
   } else if (err instanceof ValidationError) {
     res.status(422).send({
       code: 422,
-      message: err,
+      message: err.message,
     });
   } else {
     res.status(500).send({

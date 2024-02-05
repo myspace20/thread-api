@@ -1,6 +1,6 @@
 import { compareSync } from "bcrypt";
-import { Session } from "../models/session/Session";
-import { User } from "../models/user/User";
+import { Session } from "../models/Session";
+import { User } from "../models/User";
 import { HttpError } from "../util/HttpError";
 
 const FILTERED_FIELDS = ["password_hash", "created_at", "updated_at"];

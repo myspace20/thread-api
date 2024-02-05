@@ -1,4 +1,4 @@
-import { Tag } from "../models/tag/Tag";
+import { Tag } from "../models/Tag";
 import { HttpError } from "../util/HttpError";
 
 export class TagService {
